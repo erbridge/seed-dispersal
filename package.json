@@ -1,0 +1,22 @@
+{
+  "name": "seed-dispersal",
+  "version": "0.0.1",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "lint": "eslint ."
+  },
+  "author": "Felix Laurie von Massenbach <felix@erbridge.co.uk> (http://erbridge.co.uk/)",
+  "license": "MIT",
+  "dependencies": {
+    "config": "^1.17.1",
+    "iconv": "^2.1.11",
+    "mkdirp": "^0.5.1",
+    "octonode": "^0.7.4",
+    "pdfkit": "^0.7.1",
+    "winston": "^2.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^1.10.2"
+  }
+}
