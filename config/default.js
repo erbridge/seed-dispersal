@@ -3,7 +3,7 @@
 module.exports = {
   gutenberg: {
     startId:  26158,
-    maxId:    50576,
+    maxId:    46441,
     excludes: [
       11799,
     ],
