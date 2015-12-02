@@ -79,6 +79,10 @@ const stripGutenbergBoilerplate = function stripGutenbergBoilerplate(text) {
 
   output = output.replace(/^\s*produced\s+by[\s\S]+?(\r\n){2,}/i, '');
 
+  output = output.replace(
+    /\s*?etext\s+editor[\s\S]+?(\r\n){2,}?[\s\S]+?(\r\n){3,}/i, ''
+  );
+
   output = output.trim();
 
   return output;
