@@ -89,12 +89,6 @@ const getGutenbergBookFromBlob = function getGutenbergBookFromBlob(
 
       const charset = getBookEncoding(fullText);
 
-      if (charset === 'utf-8') {
-        return callback(
-          new Error(`Book ${id} is written in an unfamiliar script`)
-        );
-      }
-
       let decodedText;
 
       try {
