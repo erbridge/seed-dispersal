@@ -2,8 +2,11 @@
 
 module.exports = {
   gutenberg: {
-    startId: 26158,
-    maxId:   50576,
+    startId:  26158,
+    maxId:    50576,
+    excludes: [
+      11799,
+    ],
   },
 
   paragraphLimit: 1000,

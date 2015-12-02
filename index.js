@@ -222,6 +222,12 @@ const addParagraph = function addParagraph(
 
   const bookId = clampBookId(index);
 
+  if (config.get('gutenberg.excludes').indexOf(bookId) !== -1) {
+    winston.info(`Book ${bookId} is a forbidden text`);
+
+    return trySimilarParagraph(book, index, retry);
+  }
+
   getGutenbergBook(bookId, function processText(err, result) {
     if (err) {
       winston.info(err.message);
