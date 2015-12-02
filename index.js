@@ -58,6 +58,16 @@ const getBookEncoding = function getBookEncoding(text) {
   return match[1].toLowerCase();
 };
 
+const getBookLanguage = function getBookLanguage(text) {
+  const match = /Language: (.*?)$/m.exec(text);
+
+  if (!match) {
+    return 'english';
+  }
+
+  return match[1].toLowerCase();
+};
+
 const stripGutenbergBoilerplate = function stripGutenbergBoilerplate(text) {
   let output = text.replace(
     /^[\s\S]*start\s+of\s+(th(is|e)\s+)?project\s+gutenberg.*?[\*]+/i, ''
@@ -86,6 +96,12 @@ const getGutenbergBookFromBlob = function getGutenbergBookFromBlob(
       const fullTextBuffer = new Buffer(data.content, data.encoding);
 
       const fullText = fullTextBuffer.toString();
+
+      if (getBookLanguage(fullText) !== 'english') {
+        return callback(
+          new Error(`Book ${id} is written in an unfamiliar dialect`)
+        );
+      }
 
       const charset = getBookEncoding(fullText);
 
