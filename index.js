@@ -186,7 +186,17 @@ const getParagraph = function getParagraph(text, index) {
 
   const paragraphIndex = index % paragraphs.length;
 
-  return paragraphs[paragraphIndex];
+  return `${paragraphs[paragraphIndex]}\n\n`;
+};
+
+const trySimilarParagraph = function trySimilarParagraph(
+  book, index, callback
+) {
+  const extraText = '\n';
+
+  book.write(extraText);
+
+  callback(index + getNextIndex(extraText));
 };
 
 const addParagraph = function addParagraph(
@@ -196,10 +206,12 @@ const addParagraph = function addParagraph(
     return callback();
   }
 
-  if (cache[index]) {
-    const fallbackIndex = index * 2;
+  const retry = function retry(newIndex) {
+    addParagraph(book, newIndex, count, cache, callback);
+  };
 
-    return addParagraph(book, fallbackIndex, count, cache, callback);
+  if (cache[index]) {
+    return trySimilarParagraph(book, index, retry);
   }
 
   const bookId = clampBookId(index);
@@ -208,16 +220,14 @@ const addParagraph = function addParagraph(
     if (err) {
       winston.info(err.message);
 
-      const fallbackIndex = index * 2;
-
-      return addParagraph(book, fallbackIndex, count, cache, callback);
+      return trySimilarParagraph(book, index, retry);
     }
 
     winston.info(`Transcribing from book ${bookId}`);
 
     const paragraph = getParagraph(result, index);
 
-    book.write(`${paragraph}\n\n`);
+    book.write(paragraph);
 
     cache[index] = true;
 
