@@ -6,7 +6,7 @@
     "start": "node index.js",
     "lint": "eslint ."
   },
-  "author": "Felix Laurie von Massenbach <felix@erbridge.co.uk> (http://erbridge.co.uk/)",
+  "author": "erbridge <f@erbridge.co.uk> (https://erbridge.co.uk)",
   "license": "MIT",
   "dependencies": {
     "config": "^1.17.1",
